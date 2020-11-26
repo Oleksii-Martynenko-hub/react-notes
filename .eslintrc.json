@@ -5,7 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "prettier"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -15,12 +16,30 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "prettier"
     ],
     "rules": {
       "linebreak-style": [
         "error",
         "windows"
+      ],
+      "react/prop-types": [
+        0,
+        { 
+          "ignore": [],
+          "customValidators": [],
+          "skipUndeclared": true
+        }
+      ],
+      "no-shadow": [
+        "off",
+        {
+          "builtinGlobals": false,
+          "hoist": "functions",
+          "allow": []
+        }
       ]
+      
     }
 }

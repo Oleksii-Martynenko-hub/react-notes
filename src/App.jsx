@@ -2,8 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import CreatePost from './components/CreatePost';
-import Posts from './components/Posts';
+import CreatePost from './components/FormNote';
+import Posts from './components/Notes';
 
 const App = () => (
   <AppStyled>
@@ -20,7 +20,7 @@ const AppStyled = styled.div`
   width: 100%;
   height: 100%;
   background-color: #ffffff;
-  padding: 50px 40px 50px 50px;
+  padding: 30px 40px 50px 50px;
   display: flex;
   flex-flow: wrap;
   justify-content: center;

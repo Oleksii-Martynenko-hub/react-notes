@@ -1,14 +1,14 @@
-import { CREATE_POST, CHANGE_INPUT_VALUE_POST } from './types';
+import { CREATE_NOTE, CHANGE_INPUT_VALUE_NOTE } from './types';
 
-export function createPost(post) {
+export function createNote(post) {
   return {
-    type: CREATE_POST,
+    type: CREATE_NOTE,
     payload: post,
   };
 }
-export function changeInputValuePost(values) {
+export function changeInputValueNote(values) {
   return {
-    type: CHANGE_INPUT_VALUE_POST,
+    type: CHANGE_INPUT_VALUE_NOTE,
     payload: values,
   };
 }
