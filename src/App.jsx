@@ -17,6 +17,7 @@ const App = () => (
 export default App;
 
 const AppStyled = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
   background-color: #ffffff;

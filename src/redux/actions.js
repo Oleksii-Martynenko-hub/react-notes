@@ -1,4 +1,4 @@
-import { CREATE_NOTE, CHANGE_INPUT_VALUE_NOTE } from './types';
+import { CREATE_NOTE, CHANGE_VALUES_NOTE, CHANGE_OPENNESS_FORM } from './types';
 
 export function createNote(post) {
   return {
@@ -6,9 +6,15 @@ export function createNote(post) {
     payload: post,
   };
 }
-export function changeInputValueNote(values) {
+export function changeValuesNote(values) {
   return {
-    type: CHANGE_INPUT_VALUE_NOTE,
+    type: CHANGE_VALUES_NOTE,
     payload: values,
+  };
+}
+export function changeOpennessForm(isOpen) {
+  return {
+    type: CHANGE_OPENNESS_FORM,
+    payload: isOpen,
   };
 }

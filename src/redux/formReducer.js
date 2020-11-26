@@ -1,13 +1,19 @@
-import { CHANGE_INPUT_VALUE_NOTE } from './types';
+import { CHANGE_VALUES_NOTE, CHANGE_OPENNESS_FORM } from './types';
 
 const initialState = {
-  valueInputs: { title: '', content: '' },  
+  values: { 
+    title: '', 
+    content: '',
+  },
+  isOpen: false,  
 };
 
 const formReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHANGE_INPUT_VALUE_NOTE:
-      return { ...state, valueInputs: action.payload };
+    case CHANGE_VALUES_NOTE:
+      return { ...state, values: action.payload };
+    case CHANGE_OPENNESS_FORM:
+      return { ...state, isOpen: action.payload };
     default:
       return state;
   }
