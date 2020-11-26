@@ -5,17 +5,14 @@ import styled from 'styled-components';
 import CreatePost from './components/CreatePost';
 import Posts from './components/Posts';
 
-const App = () =>
-<AppStyled>
-  <CreatePost />
-  <PostWrap>        
-    <Posts />
-  </PostWrap>
-  {/* <AsyncPostWrap>
-    <Posts />
-  </AsyncPostWrap> */}
-  
-</AppStyled>
+const App = () => (
+  <AppStyled>
+    <CreatePost />
+    <PostWrap>
+      <Posts />
+    </PostWrap>
+  </AppStyled>
+);
 
 export default App;
 

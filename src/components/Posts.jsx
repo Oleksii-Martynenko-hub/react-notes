@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import Post from './Post';
 
 const Posts = ({ posts }) => {
-  if (!posts.length) return <Post title={'No posts'} descr={''}/>
+  const defaultProps = { tite: 'No posts', descr: '' };
+  if (!posts.length) return <Post title={defaultProps.title} descr={defaultProps.descr} />;
 
-  return posts.map(({ title, descr, key }) => <Post title={title} descr={descr} key={key} />);  
-}
+  return posts.map(({ title, descr, key }) => <Post title={title} descr={descr} key={key} />);
+};
 
-export default connect(state => ({posts: state.posts.posts}), null)(Posts)
+export default connect((state) => ({ posts: state.posts.posts }), null)(Posts);
 
 // const mapStateToProps = state => {
 //   return {
