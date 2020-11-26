@@ -2,14 +2,12 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-export default () => 
-<AsyncPost>
-  <h2>TITLE</h2>
-  <p>
-    Lorem ipsum dolor sit amet consectetur 
-    adipisicing elit.
-  </p>
-</AsyncPost>
+export default () => (
+  <AsyncPost>
+    <h2>TITLE</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+  </AsyncPost>
+);
 
 const AsyncPost = styled.div`
   position: relative;
