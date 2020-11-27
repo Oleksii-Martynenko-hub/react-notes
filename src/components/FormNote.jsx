@@ -38,6 +38,7 @@ const FormNote = ({ values, isOpen, createNote, changeValuesNote, changeOpenness
 
   // const textareaValueAddBr = (e) => {
   //   if (e.code === "Enter") changeInputValuePost({ ...valueInputs, content: content })
+  //   if (e.code === "Enter") changeInputValuePost({ ...valueInputs, content: content })
   // }
 
   // useEffect(() => {
