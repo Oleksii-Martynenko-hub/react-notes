@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import styled from 'styled-components';
 
 import { createNote, changeValuesNote, changeOpennessForm } from '../redux/actions';
@@ -113,7 +112,7 @@ const BtnOpenForm = styled.form`
   left: 50px;
   width: 50px;
   height: 50px;
-  border-top-left-radius: 4px;
+  border-top-left-radius: 6px;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   cursor: pointer;
