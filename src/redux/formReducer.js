@@ -1,11 +1,12 @@
 import { CHANGE_VALUES_NOTE, CHANGE_OPENNESS_FORM } from './types';
 
 const initialState = {
-  values: { 
-    title: '', 
+  values: {
+    title: '',
     content: '',
+    isSaveLineBreakTabs: false,
   },
-  isOpen: false,  
+  isOpen: false,
 };
 
 const formReducer = (state = initialState, action) => {

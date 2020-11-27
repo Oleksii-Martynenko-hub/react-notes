@@ -1,76 +1,74 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { generate } from 'shortid';
 import styled from 'styled-components';
 
+// import { animRotateAfter, animRotateBefore } from '../helpers/animations'
 import { createNote, changeValuesNote, changeOpennessForm } from '../redux/actions';
 
 const FormNote = ({ values, isOpen, createNote, changeValuesNote, changeOpennessForm }) => {
-  // const [title, setTitle] = useState('');
-  // const [content, setDescription] = useState('');
-  // const state = {
-  //   title: setTitle,
-  //   content: setDescription,
-  // }
-  // const textarea = useRef()
-
-  const { title, content } = values;
+  const { title, content, isSaveLineBreakTabs } = values;
+  
+  const checkboxId = generate()
 
   const submitHandler = (event) => {
     event.preventDefault();
     if (!title.trim()) return;
 
-    createNote({ title, content, key: Date.now().toString() });
+    createNote({ title, content, isSaveLineBreakTabs, key: generate() });
     changeValuesNote({ ...values, title: '', content: '' });
-    // event.target.reset();
   };
 
-  const changeInputHandler = (event) => {
-    // state[event.target.name](event.target.value);
+  const changeHandler = ({ target: { name, value, type, checked } }) => {
+    
     changeValuesNote({
       ...values,
-      [event.target.name]: event.target.value,
+      [name]: type === 'checkbox' ? checked : value,
     });
   };
 
   const changeOpennessFormHandler  = () => {
     changeOpennessForm(!isOpen)
   }
-
-  // const textareaValueAddBr = (e) => {
-  //   if (e.code === "Enter") changeInputValuePost({ ...valueInputs, content: content })
-  //   if (e.code === "Enter") changeInputValuePost({ ...valueInputs, content: content })
-  // }
-
-  // useEffect(() => {
-  //   window.addEventListener('keyup', textareaValueAddBr)
-  //   return () => {window.removeEventListener('keyup', textareaValueAddBr)}
-  // })
-
+  
   return (
-    <FormNoteStyled 
-      onSubmit={submitHandler}
-      isOpen={isOpen}
-    >
-      <BtnOpenForm onClick={changeOpennessFormHandler}>
+    <>    
+      <BtnOpenForm onClick={changeOpennessFormHandler} isOpen={isOpen}>
         <span className="visually-hidden">Button for open form</span>
-      </BtnOpenForm> 
-      <label htmlFor="content">
-        Description
+      </BtnOpenForm>
+      <FormNoteStyled
+        onSubmit={submitHandler}
+        isOpen={isOpen}
+      >
+        <h2>Create new note</h2>
+        <input 
+          placeholder="Title"
+          type="text" 
+          name="title" 
+          value={title} 
+          onChange={changeHandler}
+        />
         <textarea
-          // ref={textarea}
+          placeholder="Content"
           type="text"
           name="content"
-          id="content"
           value={content}
-          onChange={changeInputHandler}
+          onChange={changeHandler}
         />
-      </label>
-      <label htmlFor="title">
-        TITLE
-        <input type="text" name="title" id="title" value={title} onChange={changeInputHandler} />
-      </label>
-      <button type="submit">submit</button>
-    </FormNoteStyled>
+        <label htmlFor={checkboxId} className="labelSaveLineBreakTabs">
+          <input 
+            className="checkSaveLineBreakTabs" 
+            type="checkbox" 
+            name="isSaveLineBreakTabs" 
+            checked={isSaveLineBreakTabs}
+            id={checkboxId} 
+            onChange={changeHandler}
+          />
+          Save line breaks and tabs
+        </label>
+        <button type="submit">submit</button>
+      </FormNoteStyled>      
+    </>
   );
 };
 
@@ -87,35 +85,69 @@ const mapDispatchToProps = {
 
 export default connect( mapStateToProps, mapDispatchToProps )(FormNote);
 
+
+
 const FormNoteStyled = styled.form`
-  width: 100%;
-  height: ${props => props.isOpen ? '150px': '0px'};
+  height: calc(100% - 60px);
+  top: 30px;
+  right: -10px;
+  z-index: 5;
+  position: fixed;
+  width: ${props => props.isOpen ? '350px': '0px'};
   padding: ${props => props.isOpen ? '20px': '5px'};
   overflow: hidden;
   background-color: #61c7b9;
   border-radius: 6px;
-  margin: 0 10px ${props => props.isOpen ? '30px': '60px'} 0;
   transition: all 0.3s;
-  & label,
+  font-size: 20px;
+  font-family: serif;
   & input,
-  & textarea {
-    position: relative;
-    top: 5px;
-    margin-right: 15px;
+  & textarea,
+  & button {
     border-radius: 3px;
+    width: calc(100% - 10px);
+    padding: 10px;
+  }
+  & input {
+    height: 40px;
+    margin-bottom: 15px;
+  }
+  & textarea {
+    height: calc(100% - 173px);
+    margin-bottom: 12px;
+  }
+  & button {
+
+  }
+  & h2 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  & .checkSaveLineBreakTabs {
+    width: 22px;
+    height: 22px;
+    margin: 0 15px 14px 0;
+    position: relative;
+    top: 4px;
+  }
+  & .labelSaveLineBreakTabs {
+    font-size: 20px;
+    position: relative;
+    top: -4px;
   }
 `;
 
-const BtnOpenForm = styled.form`
+const BtnOpenForm = styled.button`
   background-color: #61c7b9;
-  position: absolute;
+  position: fixed;
+  z-index: 6;
   top: 30px;
-  left: 50px;
+  right: -5px;
   width: 50px;
   height: 50px;
-  border-top-left-radius: 6px;
+  border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
-  border-bottom-right-radius: 50%;
   cursor: pointer;
   &::before, 
   &::after {
@@ -123,12 +155,13 @@ const BtnOpenForm = styled.form`
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate( -50%, -50% );
+    transform: ${props => props.isOpen ? 'translate( -50%, -50% ) rotate(-45deg)'  : 'translate( -50%, -50% )'};
     width: 3px;
     height: 25px;
     background-color: #000;
+    transition: all 0.3s;
   }
   &::after {
-    transform: translate( -50%, -50% ) rotate(90deg);
+    transform: ${props => props.isOpen ? 'translate( -50%, -50% ) rotate(45deg)'  : 'translate( -50%, -50% ) rotate(90deg)'};
   }
 `;

@@ -1,32 +1,15 @@
 import React from 'react';
-
 import styled from 'styled-components';
 
-const Note = ({ title, content }) => {
-  const ContentSaveLineBreakWhiteSpaces = () => {
-    const contentSLBWS = content.split('\n');
-    if (contentSLBWS.length < 2) return <p>{content}</p>;
-    return contentSLBWS.map((line, i) => {
-      const words = line.split(' ');
+import saveLineBreakTabs  from '../helpers/saveLineBreakTabs';
 
-      const key = i;
-      return (
-        <p key={key}>
-          {words.map((word) => (
-            <span>
-              <i>&nbsp;</i>
-              {word}
-            </span> 
-          ))}
-        </p>
-      );
-    });
-  };
+const Note = ({ title, content, isSaveLineBreakTabs }) => {
+  const Content = () => saveLineBreakTabs( content, isSaveLineBreakTabs )
 
   return (
     <NoteStyled>
       <h2>{title}</h2>
-      <ContentSaveLineBreakWhiteSpaces />
+      <Content />
     </NoteStyled>
   );
 };

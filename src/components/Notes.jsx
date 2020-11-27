@@ -7,7 +7,13 @@ const Notes = ({ notes }) => {
   const defaultProps = { title: 'No notes', content: '' };
   if (!notes.length) return <Note title={defaultProps.title} content={defaultProps.content} />;
 
-  return notes.map(({ title, content, key }) => <Note title={title} content={content} key={key} />);
+  return notes.map(
+    ({ 
+      title, 
+      content, 
+      key,
+      isSaveLineBreakTabs 
+    }) => <Note title={title} content={content} isSaveLineBreakTabs={isSaveLineBreakTabs} key={key} />);
 };
 
 export default connect((state) => ({ notes: state.notes.notes }), null)(Notes);
