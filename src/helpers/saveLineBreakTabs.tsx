@@ -2,7 +2,7 @@ import React from 'react';
 import { generate } from 'shortid';
 
 
-export default ( content, isSaveLineBreakTabs ) => {
+const saveLineBreakTabs:((content: string, isSaveLineBreakTabs: boolean) => JSX.Element | JSX.Element[]) = ( content: string, isSaveLineBreakTabs: boolean ) => {
   if (isSaveLineBreakTabs) {    
     const contentSLBWS = content.split('\n');
     if (contentSLBWS.length < 2) return <p>{content}</p>;
@@ -13,8 +13,8 @@ export default ( content, isSaveLineBreakTabs ) => {
         <p key={key}>
           {words.map((word) => (
             <span key={generate()}>
-              <i>&nbsp;&nbsp;</i>
               {word}
+              <i>&nbsp;&nbsp;</i>
             </span>
           ))}
         </p>
@@ -24,3 +24,5 @@ export default ( content, isSaveLineBreakTabs ) => {
 
   return <p>{content}</p>;
 };
+
+export default saveLineBreakTabs;

@@ -1,8 +1,0 @@
-root = true
-
-[*.md]
-trim_trailing_whitespace = false
-
-[*.js]
-trim_trailing_whitespace = true
-insert_final_newline = true

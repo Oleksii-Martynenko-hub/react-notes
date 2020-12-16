@@ -2,17 +2,22 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import CreatePost from './components/FormNote';
-import Posts from './components/Notes';
+import UserInterface from './components/UserInterface';
+import Notes from './components/Notes';
 
-const App = () => (
-  <AppStyled>
-    <CreatePost />
-    <PostWrap>
-      <Posts />
-    </PostWrap>
-  </AppStyled>
-);
+
+const App: React.FC = () => { 
+
+  return (
+    <AppStyled >
+      <UserInterface />
+      
+      <NoteWrap>
+        <Notes />
+      </NoteWrap>
+    </AppStyled>
+  );
+};
 
 export default App;
 
@@ -21,13 +26,15 @@ const AppStyled = styled.div`
   width: 100%;
   height: 100%;
   background-color: #ffffff;
-  padding: 30px 40px 50px 50px;
+  padding: 20px 10px 75px 20px;
   display: flex;
   flex-flow: wrap;
   justify-content: center;
   align-items: flex-start;
+  
 `;
-const PostWrap = styled.div`
+
+const NoteWrap = styled.div`
   width: 100%;
   overflow: auto;
   display: flex;
@@ -35,3 +42,4 @@ const PostWrap = styled.div`
   justify-content: space-between;
   align-items: stretch;
 `;
+
