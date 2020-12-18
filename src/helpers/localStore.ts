@@ -1,4 +1,4 @@
-import { INote } from '../interfaces/interfaces';
+import { INote, ITodo } from '../interfaces/interfaces';
 
 export default {
   get(key: string): [] | null {
@@ -8,7 +8,7 @@ export default {
     return parseLocalStore;
   },
 
-  set(key: string, newStore: INote[]): void | null {
-    return this.get(key) && localStorage.setItem(key, JSON.stringify(newStore));  
+  set(key: string, newStore: INote[] | ITodo[]): void | null {
+    return localStorage.setItem(key, JSON.stringify(newStore));  
   }
 };

@@ -1,9 +1,14 @@
 import { 
   CREATE_NOTE, 
   DELETE_NOTE, 
-  CHANGE_VALUES_FORM, 
-  CHANGE_OPENNESS_FORM, 
-  CHANGE_ACTIVE_BURGER  } from '../store/types';
+  CHANGE_ACTIVE_BURGER,  
+  CREATE_TODO,
+  DELETE_TODO,
+  CHANGE_VALUES_FORM_NOTE,
+  CHANGE_VALUES_FORM_TODO,
+  CHANGE_OPENNESS_FORM_NOTE,
+  CHANGE_OPENNESS_FORM_TODO,
+  COMPLETE_TODO} from '../store/types';
 
 export type INote = {
   title: string;
@@ -11,7 +16,12 @@ export type INote = {
   isSaveLineBreakTabs: boolean;
   key: string;
 }
-export type IFormValues = {
+export type ITodo = {
+  title: string;
+  isComplete: boolean;
+  key: string;
+}
+export type IFormNoteValues = {
   title: string,
   content: string,
   isSaveLineBreakTabs: boolean,
@@ -20,12 +30,17 @@ export type IFormValues = {
 export type DefaultState = {
   UI: {
     isActiveBurger: boolean,
-    form: {
-      values: IFormValues,
-      isOpenForm: boolean,
+    formNote: {
+      values: IFormNoteValues,
+      isOpenFormNote: boolean,
+    }
+    formTodo: {
+      value: string,
+      isOpenFormTodo: boolean,
     }
   },
   notes: INote[],
+  todos: ITodo[],
 }
 
 
@@ -40,12 +55,36 @@ export interface DeleteNote {
 
 export type NoteActions = CreateNote | DeleteNote;
 
-export interface ChangeValuesForm {
-  type: typeof CHANGE_VALUES_FORM;
-  payload: IFormValues;
+export interface CreateTodo {
+  type: typeof CREATE_TODO;
+  payload: ITodo;
 }
-export interface ChangeOpennessForm {
-  type: typeof CHANGE_OPENNESS_FORM;
+export interface CompleteTodo {
+  type: typeof COMPLETE_TODO;
+  payload: string;
+}
+
+export interface DeleteTodo {
+  type: typeof DELETE_TODO;
+  payload: string;
+}
+
+export type TodoActions = CreateTodo | CompleteTodo | DeleteTodo;
+
+export interface ChangeValuesFormNote {
+  type: typeof CHANGE_VALUES_FORM_NOTE;
+  payload: IFormNoteValues;
+}
+export interface ChangeValuesFormTodo {
+  type: typeof CHANGE_VALUES_FORM_TODO;
+  payload: string;
+}
+export interface ChangeOpennessFormNote {
+  type: typeof CHANGE_OPENNESS_FORM_NOTE;
+  payload: boolean;
+}
+export interface ChangeOpennessFormTodo {
+  type: typeof CHANGE_OPENNESS_FORM_TODO;
   payload: boolean;
 }
 export interface ChangeActiveBurger {
@@ -53,6 +92,6 @@ export interface ChangeActiveBurger {
   payload: boolean;
 }
 
-export type UIActions = ChangeValuesForm | ChangeOpennessForm | ChangeActiveBurger;
+export type UIActions = ChangeValuesFormNote | ChangeValuesFormTodo | ChangeOpennessFormNote | ChangeOpennessFormTodo | ChangeActiveBurger;
 
 export type Actions = UIActions | NoteActions;

@@ -2,11 +2,12 @@ import { createStore, combineReducers } from 'redux';
 // import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { UIReducer, notesReducer } from './reducers';
+import { UIReducer, notesReducer, todosReducer } from './reducers';
 // import formReducer from './formReducer';
 
 const rootReducer = combineReducers({
   notes: notesReducer,
+  todos: todosReducer,
   UI: UIReducer,
 });
 

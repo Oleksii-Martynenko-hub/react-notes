@@ -1,15 +1,21 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 import FormNote from './FormNote';
+import FormToDo from './FormToDo';
 import Burger from './Burger';
-import Menu from './Menu';
+import Menu from './Nav';
 
 const UserInterface: React.FC = () => 
   <UserInterfaceStyled>
     <Burger />
     <Menu />
-    <FormNote />
+    <Switch>
+      <Route component={FormNote} path='/' exact/>
+      <Route component={FormToDo} path='/todo' />
+    </Switch>
+    {/* <FormNote /> */}
   </UserInterfaceStyled>;
 
 export default UserInterface;

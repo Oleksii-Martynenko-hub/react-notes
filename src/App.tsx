@@ -1,21 +1,27 @@
 import React from 'react';
-
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 import UserInterface from './components/UserInterface';
 import Notes from './components/Notes';
+import ToDoList from './components/ToDoList';
 
 
 const App: React.FC = () => { 
 
   return (
-    <AppStyled >
-      <UserInterface />
-      
-      <NoteWrap>
-        <Notes />
-      </NoteWrap>
-    </AppStyled>
+    <BrowserRouter>      
+      <AppStyled >
+        <UserInterface />
+        
+        <SwitchStyled>
+          {/* <Switch> */}
+            <Route component={Notes} path='/' exact />           
+            <Route component={ToDoList} path='/todo' />           
+          {/* </Switch> */}
+        </SwitchStyled>
+      </AppStyled>          
+    </BrowserRouter>
   );
 };
 
@@ -34,7 +40,7 @@ const AppStyled = styled.div`
   
 `;
 
-const NoteWrap = styled.div`
+const SwitchStyled = styled(Switch)`
   width: 100%;
   overflow: auto;
   display: flex;

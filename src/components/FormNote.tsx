@@ -6,24 +6,23 @@ import styled from 'styled-components';
 // import { animRotateAfter, animRotateBefore } from '../helpers/animations'
 import { AppStore } from '../store/store';
 import localStore from '../helpers/localStore';
-import { createNote, changeValuesForm, changeOpennessForm } from '../store/actions';
-import { ChangeOpennessForm, ChangeValuesForm, CreateNote, IFormValues, INote } from '../interfaces/interfaces';
-
+import { createNote, changeValuesFormNote, changeOpennessFormNote } from '../store/actions';
+import { ChangeOpennessFormNote, ChangeValuesFormNote, CreateNote, IFormNoteValues, INote } from '../interfaces/interfaces';
 interface FormNoteProps {
-  values: IFormValues, 
-  isOpenForm: boolean,
+  values: IFormNoteValues, 
+  isOpenFormNote: boolean,
   notes: INote[],
-  changeValuesForm: (values: IFormValues) => ChangeValuesForm, 
-  changeOpennessForm: (isOpenForm: boolean) => ChangeOpennessForm, 
+  changeValuesFormNote: (values: IFormNoteValues) => ChangeValuesFormNote, 
+  changeOpennessFormNote: (isOpenForm: boolean) => ChangeOpennessFormNote, 
   createNote: (note: INote) => CreateNote;
 }
 
 const FormNote: React.FC<FormNoteProps> = ({ 
   values, 
-  isOpenForm,
+  isOpenFormNote,
   notes,
-  changeValuesForm, 
-  changeOpennessForm, 
+  changeValuesFormNote, 
+  changeOpennessFormNote, 
   createNote,
 }) => {
   const { title, content, isSaveLineBreakTabs } = values;
@@ -37,22 +36,22 @@ const FormNote: React.FC<FormNoteProps> = ({
     const newNote = { title, content, isSaveLineBreakTabs, key: generate() };
 
     createNote(newNote);
-    changeValuesForm({ ...values, title: '', content: '' });
-    changeOpennessForm(!isOpenForm);
+    changeValuesFormNote({ ...values, title: '', content: '' });
+    changeOpennessFormNote(!isOpenFormNote);
 
     localStore.set('myNotes', [ ...notes, newNote]);
   };
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>): void => {
     const { target: { name, value, type, checked } } = event;
-    changeValuesForm({
+    changeValuesFormNote({
       ...values,
       [name]: type === 'checkbox' ? checked : value,
     });
   };
 
   const changeOpennessFormHandler = () => {
-    changeOpennessForm(!isOpenForm);
+    changeOpennessFormNote(!isOpenFormNote);
   };
 
   return (
@@ -60,7 +59,7 @@ const FormNote: React.FC<FormNoteProps> = ({
       <FormNoteStyled
         isFocusInput={isFocusInput}
         onSubmit={submitHandler}
-        isOpen={isOpenForm}
+        isOpen={isOpenFormNote}
       >
         <h2>Create new note</h2>
         <input 
@@ -98,13 +97,13 @@ const FormNote: React.FC<FormNoteProps> = ({
 };
 
 const mapStateToProps = ( state: AppStore ) => ({
-  values: state.UI.UI.form.values,
-  isOpenForm: state.UI.UI.form.isOpenForm,
+  values: state.UI.UI.formNote.values,
+  isOpenFormNote: state.UI.UI.formNote.isOpenFormNote,
   notes: state.notes.notes,
 });
 const mapDispatchToProps = {
-  changeValuesForm,
-  changeOpennessForm,
+  changeValuesFormNote,
+  changeOpennessFormNote,
   createNote
 };
 

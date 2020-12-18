@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -6,17 +7,17 @@ import { AppStore } from '../store/store';
 import { ChangeActiveBurger } from '../interfaces/interfaces';
 import { changeActiveBurger } from '../store/actions';
 
-interface MenuProps {
+interface NavProps {
   isActiveBurger: boolean;
   changeActiveBurger: (isActiveBurger: boolean) => ChangeActiveBurger;
 }
 
-const Menu: React.FC<MenuProps> = ({ isActiveBurger, changeActiveBurger }) => {
+const Nav: React.FC<NavProps> = ({ isActiveBurger, changeActiveBurger }) => {
   
-  const menu = [
-    {item: 'My ToDos', key: 0},
-    {item: 'Notes', key: 1},
-    {item: 'About', key: 2},
+  const navPages = [
+    {item: 'Notes', path: '/', key: 1},
+    {item: 'My ToDos', path: '/todo', key: 0},
+    {item: 'About', path: '/about', key: 2},
   ];
 
   const handleClick = (): void => {
@@ -24,13 +25,15 @@ const Menu: React.FC<MenuProps> = ({ isActiveBurger, changeActiveBurger }) => {
   };
 
   return (
-    <MenuStyled isActive={isActiveBurger}>
+    <NavStyled isActive={isActiveBurger}>
       {
-        menu.map(({ item, key }) => (
-          <MenuItem onClick={handleClick} key={key} > { item } </MenuItem>
+        navPages.map(({ item, path, key }) => (
+          <NavItem  onClick={handleClick} key={key} >
+            <NavLink to={path} >{ item }</NavLink>
+          </NavItem>
         ))
       }
-    </MenuStyled>
+    </NavStyled>
   );
 };
 
@@ -38,10 +41,10 @@ const mapStateToProps = ( state: AppStore ) => ({
   isActiveBurger: state.UI.UI.isActiveBurger
 });
 
-export default connect(mapStateToProps, {changeActiveBurger})(Menu);
+export default connect(mapStateToProps, {changeActiveBurger})(Nav);
 
 
-const MenuItem = styled.li`
+const NavItem = styled.li`
   width: 240px;
   height: 60px;
   position: relative;  
@@ -74,7 +77,7 @@ const MenuItem = styled.li`
   }
 `;
 
-const MenuStyled = styled.ul<{ isActive: boolean }>`
+const NavStyled = styled.ul<{ isActive: boolean }>`
   width: 100%;
   bottom: 60px;
   left: 0px;
@@ -89,7 +92,7 @@ const MenuStyled = styled.ul<{ isActive: boolean }>`
   font-size: 20px;
   font-family: serif;
 
-  &>${MenuItem} {
+  &>${NavItem} {
     transform: ${({isActive}) => isActive ? 'rotate(0deg)': 'rotate(80deg)'};
     margin-bottom: ${({isActive}) => isActive ? '40px': '0px'};
     right: ${({isActive}) => isActive ? '0px': 'calc(-100% + 160px)'};
