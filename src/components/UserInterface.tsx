@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 import FormNote from './FormNote';
@@ -15,7 +15,6 @@ const UserInterface: React.FC = () =>
       <Route component={FormNote} path='/' exact/>
       <Route component={FormToDo} path='/todo' />
     </Switch>
-    {/* <FormNote /> */}
   </UserInterfaceStyled>;
 
 export default UserInterface;
