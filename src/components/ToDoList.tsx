@@ -48,7 +48,7 @@ const ToDoList: React.FC<NotesProps> = ({ todos, deleteTodo, completeTodo }) => 
               checked={isComplete}
               onChange={changeHandler(key)} 
             />
-            <TitleStyled >{title}</TitleStyled>
+            <TitleStyled> {title} </TitleStyled>
             <BtnDelNote onClick={handleDelete(key)}/>
           </TodoStyled>
       )}
@@ -67,9 +67,10 @@ const mapDispatchToProps = {
 export default connect(mapStateToProps, mapDispatchToProps)(ToDoList);
 
 const CompleteCheckbox = styled.input`
-  width: 22px;
-  height: 22px;
-  margin: 0 0 5px 0;
+  width: 35px;
+  height: 35px;
+  top: 2px;
+  left: -10px;
   position: relative;
 `;
 
@@ -77,39 +78,45 @@ const TitleStyled = styled.h2``;
 
 const TodoStyled = styled.div<{ isComplete?: boolean }>`
   position: relative;
+  width: calc(100% - 12px);
+  display: flex;
   top: 0;
   left: 0;
-  flex: 1 1 auto;
-  padding: 10px;
-  border: 2px solid #adadad;
-  margin-right: 10px;
   margin-bottom: 10px;
-  border-radius: 6px;
   font-family: serif;
-  display: flex;
-  flex-flow: wrap column;
+  border-bottom: 1px solid rgb(185, 185, 185);
   & ${TitleStyled} {
     text-decoration: ${({isComplete}) => isComplete ? 'line-through' : 'none'};
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 500;
-    color: rgba(0, 0, 0, 0.9);
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    height: 32px;
+    line-height: 38px;
+    width: calc(100% - 77px);
+    color: ${({isComplete}) => isComplete ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.9)'};
+    overflow: auto hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
 const BtnDelNote = styled.button`
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
+  border: 1px solid rgb(185, 185, 185);
+  border-radius: 3px;
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 1px;
+  right: -2px;
   background: rgba(255, 255, 255, 0);
   cursor: pointer;
   &::before,
   &::after {
     content: '';
     position: absolute;
-    width:22px;
+    width:26px;
     height: 3px;
     top: 50%;
     left: 50%;

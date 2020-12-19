@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import UserInterface from './components/UserInterface';
 import Notes from './components/Notes';
 import ToDoList from './components/ToDoList';
+import About from './components/About';
 
 
 const App: React.FC = () => { 
@@ -15,10 +16,9 @@ const App: React.FC = () => {
         <UserInterface />
         
         <SwitchStyled>
-          {/* <Switch> */}
             <Route component={Notes} path='/' exact />           
             <Route component={ToDoList} path='/todo' />           
-          {/* </Switch> */}
+            <Route component={About} path='/about' />           
         </SwitchStyled>
       </AppStyled>          
     </BrowserRouter>
@@ -32,7 +32,7 @@ const AppStyled = styled.div`
   width: 100%;
   height: 100%;
   background-color: #ffffff;
-  padding: 20px 10px 75px 20px;
+  padding: 14px 10px 78px 20px;
   display: flex;
   flex-flow: wrap;
   justify-content: center;
@@ -44,8 +44,8 @@ const SwitchStyled = styled(Switch)`
   width: 100%;
   overflow: auto;
   display: flex;
-  flex-flow: wrap row;
-  justify-content: space-between;
-  align-items: stretch;
+  flex-flow: wrap column;
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
 
