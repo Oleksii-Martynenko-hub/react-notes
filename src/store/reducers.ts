@@ -3,10 +3,8 @@ import {
   DELETE_NOTE, 
   CREATE_TODO, 
   DELETE_TODO, 
-  CHANGE_VALUES_FORM_NOTE, 
-  CHANGE_VALUES_FORM_TODO, 
-  CHANGE_OPENNESS_FORM_NOTE, 
-  CHANGE_OPENNESS_FORM_TODO, 
+  CHANGE_VALUES_FORM, 
+  CHANGE_OPENNESS_FORM, 
   CHANGE_ACTIVE_BURGER, 
   COMPLETE_TODO} from './types';
 
@@ -19,17 +17,13 @@ const localTodos = localStore.get('myTodos') || [];
 const initialState: DefaultState = {
   UI: {
     isActiveBurger: false,
-    formNote: {
+    form: {
       values: {
         title: '',
         content: '',
         isSaveLineBreakTabs: false,
       },
-      isOpenFormNote: false,
-    },
-    formTodo: {
-      value: '',
-      isOpenFormTodo: false,
+      isOpenForm: false,
     }
   },
   notes: [...localNotes],
@@ -60,14 +54,10 @@ export const todosReducer = (state: DefaultState = initialState, action: TodoAct
 };
 export const UIReducer = (state: DefaultState = initialState, action: UIActions): DefaultState => {
   switch (action.type) {
-    case CHANGE_VALUES_FORM_NOTE:
-      return { ...state, UI: { ...state.UI, formNote: { ...state.UI.formNote, values: action.payload }}};
-    case CHANGE_VALUES_FORM_TODO:
-      return { ...state, UI: { ...state.UI, formTodo: { ...state.UI.formTodo, value: action.payload }}};
-    case CHANGE_OPENNESS_FORM_NOTE:
-      return { ...state, UI: { ...state.UI, formNote: { ...state.UI.formNote, isOpenFormNote: action.payload }}};
-    case CHANGE_OPENNESS_FORM_TODO:
-      return { ...state, UI: { ...state.UI, formTodo: { ...state.UI.formTodo, isOpenFormTodo: action.payload }}};
+    case CHANGE_VALUES_FORM:
+      return { ...state, UI: { ...state.UI, form: { ...state.UI.form, values: action.payload }}};
+    case CHANGE_OPENNESS_FORM:
+      return { ...state, UI: { ...state.UI, form: { ...state.UI.form, isOpenForm: action.payload }}};
     case CHANGE_ACTIVE_BURGER:
       return { ...state, UI: { ...state.UI, isActiveBurger: action.payload} };
     default:
