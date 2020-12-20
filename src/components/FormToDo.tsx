@@ -6,27 +6,27 @@ import styled from 'styled-components';
 // import { animRotateAfter, animRotateBefore } from '../helpers/animations'
 import { AppStore } from '../store/store';
 import localStore from '../helpers/localStore';
-import { createTodo, changeValuesFormTodo, changeOpennessFormTodo } from '../store/actions';
-import { ChangeOpennessFormTodo, ChangeValuesFormTodo, CreateTodo, ITodo } from '../interfaces/interfaces';
+import { createTodo, changeValuesForm, changeOpennessForm } from '../store/actions';
+import { ChangeOpennessForm, ChangeValuesForm, CreateTodo, IFormValues, ITodo } from '../interfaces/interfaces';
 
 interface FormTodoProps {
-  value: string, 
-  isOpenFormTodo: boolean,
+  values: IFormValues, 
+  isOpenForm: boolean,
   todos: ITodo[],
-  changeValuesFormTodo: (value: string) => ChangeValuesFormTodo, 
-  changeOpennessFormTodo: (isOpenFormTodo: boolean) => ChangeOpennessFormTodo, 
+  changeValuesForm: (values: IFormValues) => ChangeValuesForm, 
+  changeOpennessForm: (isOpenForm: boolean) => ChangeOpennessForm, 
   createTodo: (todo: ITodo) => CreateTodo;
 }
 
 const FormTodo: React.FC<FormTodoProps> = ({ 
-  value, 
-  isOpenFormTodo,
+  values, 
+  isOpenForm,
   todos,
-  changeValuesFormTodo, 
-  changeOpennessFormTodo, 
+  changeValuesForm, 
+  changeOpennessForm, 
   createTodo,
 }) => {
-  const title = value;
+  const { title } = values;
   
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -34,25 +34,25 @@ const FormTodo: React.FC<FormTodoProps> = ({
     const newTodo = { title, isComplete: false, key: generate() };
 
     createTodo(newTodo);
-    changeValuesFormTodo('');
-    changeOpennessFormTodo(!isOpenFormTodo);
+    changeValuesForm({...values, title: ''});
+    changeOpennessForm(!isOpenForm);
 
     localStore.set('myTodos', [ ...todos, newTodo]);
   };
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    changeValuesFormTodo(event.target.value);
+    changeValuesForm({...values, title: event.target.value});
   };
 
   const changeOpennessFormHandler = () => {
-    changeOpennessFormTodo(!isOpenFormTodo);
+    changeOpennessForm(!isOpenForm);
   };
 
   return (
     <>
       <FormTodoStyled
         onSubmit={submitHandler}
-        isOpen={isOpenFormTodo}
+        isOpen={isOpenForm}
       >
         <h2>Create new todo</h2>
         <input 
@@ -72,13 +72,13 @@ const FormTodo: React.FC<FormTodoProps> = ({
 };
 
 const mapStateToProps = ( state: AppStore ) => ({
-  value: state.UI.UI.formTodo.value,
-  isOpenFormTodo: state.UI.UI.formTodo.isOpenFormTodo,
+  values: state.UI.UI.form.values,
+  isOpenForm: state.UI.UI.form.isOpenForm,
   todos: state.todos.todos,
 });
 const mapDispatchToProps = {
-  changeValuesFormTodo,
-  changeOpennessFormTodo,
+  changeValuesForm,
+  changeOpennessForm,
   createTodo
 };
 
