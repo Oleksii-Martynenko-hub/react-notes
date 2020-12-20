@@ -3,7 +3,6 @@ import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { UIReducer, notesReducer, todosReducer } from './reducers';
-// import formReducer from './formReducer';
 
 const rootReducer = combineReducers({
   notes: notesReducer,
