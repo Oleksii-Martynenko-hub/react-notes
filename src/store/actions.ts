@@ -2,26 +2,22 @@ import {
   CREATE_NOTE, 
   DELETE_NOTE, 
   CHANGE_ACTIVE_BURGER,  
-  CHANGE_VALUES_FORM_NOTE,
-  CHANGE_VALUES_FORM_TODO,
+  CHANGE_VALUES_FORM,
   CREATE_TODO,
   DELETE_TODO,
-  CHANGE_OPENNESS_FORM_NOTE,
-  CHANGE_OPENNESS_FORM_TODO,
+  CHANGE_OPENNESS_FORM,
   COMPLETE_TODO} from '../store/types';
 import { 
-  ChangeValuesFormNote,
   ChangeActiveBurger,
   CreateNote, 
   DeleteNote, 
   INote, 
-  IFormNoteValues,
-  ChangeValuesFormTodo,
+  IFormValues,
+  ChangeValuesForm,
   CreateTodo,
   DeleteTodo,
   ITodo,
-  ChangeOpennessFormNote,
-  ChangeOpennessFormTodo,
+  ChangeOpennessForm,
   CompleteTodo} from '../interfaces/interfaces';
 
 export const createNote = (note: INote): CreateNote => {
@@ -57,27 +53,15 @@ export const deleteTodo = (key: string): DeleteTodo => {
   };
 };
 
-export const changeValuesFormNote = (values: IFormNoteValues): ChangeValuesFormNote => {
+export const changeValuesForm = (values: IFormValues): ChangeValuesForm => {
   return {
-    type: CHANGE_VALUES_FORM_NOTE,
+    type: CHANGE_VALUES_FORM,
     payload: values,
   };
 };
-export const changeValuesFormTodo = (value: string): ChangeValuesFormTodo => {
+export const changeOpennessForm = (isOpen: boolean): ChangeOpennessForm => {
   return {
-    type: CHANGE_VALUES_FORM_TODO,
-    payload: value,
-  };
-};
-export const changeOpennessFormNote = (isOpen: boolean): ChangeOpennessFormNote => {
-  return {
-    type: CHANGE_OPENNESS_FORM_NOTE,
-    payload: isOpen,
-  };
-};
-export const changeOpennessFormTodo = (isOpen: boolean): ChangeOpennessFormTodo => {
-  return {
-    type: CHANGE_OPENNESS_FORM_TODO,
+    type: CHANGE_OPENNESS_FORM,
     payload: isOpen,
   };
 };
