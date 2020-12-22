@@ -34,8 +34,7 @@ const ToDoList: React.FC<NotesProps> = ({ todos, deleteTodo, completeTodo }) => 
     <>
       {!todos.length && (
         <TodoStyled>
-          <h2>No todos</h2>
-          <p>Your todo list is empty yet</p>
+          <h2>Your todo list is empty yet</h2>
         </TodoStyled>
       )}
 
