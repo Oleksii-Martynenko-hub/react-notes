@@ -1,12 +1,14 @@
 import React from 'react';
+
 import styled from 'styled-components';
 
-const About: React.FC = () => 
+const About: React.FC = () => (
   <AboutStyled>
     <InfoStyled> Information about this App! </InfoStyled>
     <InfoStyled> Information about this App? </InfoStyled>
     <InfoStyled> Information about this App$ </InfoStyled>
-  </AboutStyled>;
+  </AboutStyled>
+);
 
 export default About;
 

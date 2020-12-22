@@ -1,24 +1,26 @@
-import { 
-  CREATE_NOTE, 
-  DELETE_NOTE, 
-  CHANGE_ACTIVE_BURGER,  
+import {
+  CREATE_NOTE,
+  DELETE_NOTE,
+  CHANGE_ACTIVE_BURGER,
   CHANGE_VALUES_FORM,
   CREATE_TODO,
   DELETE_TODO,
   CHANGE_OPENNESS_FORM,
-  COMPLETE_TODO} from '../store/types';
-import { 
+  COMPLETE_TODO,
+} from '../store/types';
+import {
   ChangeActiveBurger,
-  CreateNote, 
-  DeleteNote, 
-  INote, 
+  CreateNote,
+  DeleteNote,
+  INote,
   IFormValues,
   ChangeValuesForm,
   CreateTodo,
   DeleteTodo,
   ITodo,
   ChangeOpennessForm,
-  CompleteTodo} from '../interfaces/interfaces';
+  CompleteTodo,
+} from '../interfaces/interfaces';
 
 export const createNote = (note: INote): CreateNote => {
   return {

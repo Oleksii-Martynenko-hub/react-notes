@@ -1,42 +1,42 @@
-import { 
-  CREATE_NOTE, 
-  DELETE_NOTE, 
-  CHANGE_ACTIVE_BURGER,  
+import {
+  CREATE_NOTE,
+  DELETE_NOTE,
+  CHANGE_ACTIVE_BURGER,
   CREATE_TODO,
   DELETE_TODO,
   CHANGE_VALUES_FORM,
   CHANGE_OPENNESS_FORM,
-  COMPLETE_TODO} from '../store/types';
+  COMPLETE_TODO,
+} from '../store/types';
 
 export type INote = {
   title: string;
   content: string;
   isSaveLineBreakTabs: boolean;
   key: string;
-}
+};
 export type ITodo = {
   title: string;
   isComplete: boolean;
   key: string;
-}
+};
 export type IFormValues = {
-  title: string,
-  content: string,
-  isSaveLineBreakTabs: boolean,
-}
+  title: string;
+  content: string;
+  isSaveLineBreakTabs: boolean;
+};
 
 export type DefaultState = {
   UI: {
-    isActiveBurger: boolean,
+    isActiveBurger: boolean;
     form: {
-      values: IFormValues,
-      isOpenForm: boolean,
-    }
-  },
-  notes: INote[],
-  todos: ITodo[],
-}
-
+      values: IFormValues;
+      isOpenForm: boolean;
+    };
+  };
+  notes: INote[];
+  todos: ITodo[];
+};
 
 export interface CreateNote {
   type: typeof CREATE_NOTE;

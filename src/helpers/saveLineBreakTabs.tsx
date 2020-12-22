@@ -1,9 +1,11 @@
 import React from 'react';
 import { generate } from 'shortid';
 
-
-const saveLineBreakTabs:((content: string, isSaveLineBreakTabs: boolean) => JSX.Element | JSX.Element[]) = ( content: string, isSaveLineBreakTabs: boolean ) => {
-  if (isSaveLineBreakTabs) {    
+const saveLineBreakTabs: (content: string, isSaveLineBreakTabs: boolean) => JSX.Element | JSX.Element[] = (
+  content: string,
+  isSaveLineBreakTabs: boolean
+) => {
+  if (isSaveLineBreakTabs) {
     const contentSLBWS = content.split('\n');
     if (contentSLBWS.length < 2) return <p>{content}</p>;
     return contentSLBWS.map((line, i) => {

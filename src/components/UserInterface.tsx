@@ -7,15 +7,16 @@ import FormToDo from './FormToDo';
 import Burger from './Burger';
 import Menu from './Nav';
 
-const UserInterface: React.FC = () => 
+const UserInterface: React.FC = () => (
   <UserInterfaceStyled>
     <Burger />
     <Menu />
     <Switch>
-      <Route component={FormNote} path='/' exact/>
-      <Route component={FormToDo} path='/todo' />
+      <Route component={FormNote} path="/" exact />
+      <Route component={FormToDo} path="/todo" />
     </Switch>
-  </UserInterfaceStyled>;
+  </UserInterfaceStyled>
+);
 
 export default UserInterface;
 
