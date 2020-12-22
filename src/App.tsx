@@ -7,20 +7,18 @@ import Notes from './components/Notes';
 import ToDoList from './components/ToDoList';
 import About from './components/About';
 
-
-const App: React.FC = () => { 
-
+const App: React.FC = () => {
   return (
-    <BrowserRouter>      
-      <AppStyled >
+    <BrowserRouter>
+      <AppStyled>
         <UserInterface />
-        
+
         <SwitchStyled>
-            <Route component={Notes} path='/' exact />           
-            <Route component={ToDoList} path='/todo' />           
-            <Route component={About} path='/about' />           
+          <Route component={Notes} path="/" exact />
+          <Route component={ToDoList} path="/todo" />
+          <Route component={About} path="/about" />
         </SwitchStyled>
-      </AppStyled>          
+      </AppStyled>
     </BrowserRouter>
   );
 };
@@ -37,7 +35,6 @@ const AppStyled = styled.div`
   flex-flow: wrap;
   justify-content: center;
   align-items: flex-start;
-  
 `;
 
 const SwitchStyled = styled(Switch)`
@@ -48,4 +45,3 @@ const SwitchStyled = styled(Switch)`
   justify-content: flex-start;
   align-items: flex-start;
 `;
-

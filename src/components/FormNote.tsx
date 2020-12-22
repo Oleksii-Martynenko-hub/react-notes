@@ -9,24 +9,24 @@ import localStore from '../helpers/localStore';
 import { createNote, changeValuesForm, changeOpennessForm } from '../store/actions';
 import { ChangeOpennessForm, ChangeValuesForm, CreateNote, IFormValues, INote } from '../interfaces/interfaces';
 interface FormNoteProps {
-  values: IFormValues, 
-  isOpenForm: boolean,
-  notes: INote[],
-  changeValuesForm: (values: IFormValues) => ChangeValuesForm, 
-  changeOpennessForm: (isOpenForm: boolean) => ChangeOpennessForm, 
+  values: IFormValues;
+  isOpenForm: boolean;
+  notes: INote[];
+  changeValuesForm: (values: IFormValues) => ChangeValuesForm;
+  changeOpennessForm: (isOpenForm: boolean) => ChangeOpennessForm;
   createNote: (note: INote) => CreateNote;
 }
 
-const FormNote: React.FC<FormNoteProps> = ({ 
-  values, 
+const FormNote: React.FC<FormNoteProps> = ({
+  values,
   isOpenForm,
   notes,
-  changeValuesForm, 
-  changeOpennessForm, 
+  changeValuesForm,
+  changeOpennessForm,
   createNote,
 }) => {
   const { title, content, isSaveLineBreakTabs } = values;
-  
+
   const isFocusInput = false;
   const checkboxId = generate();
 
@@ -39,7 +39,7 @@ const FormNote: React.FC<FormNoteProps> = ({
     changeValuesForm({ ...values, title: '', content: '' });
     changeOpennessForm(!isOpenForm);
 
-    localStore.set('myNotes', [ ...notes, newNote]);
+    localStore.set('myNotes', [...notes, newNote]);
   };
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement & HTMLTextAreaElement>): void => {
@@ -56,19 +56,9 @@ const FormNote: React.FC<FormNoteProps> = ({
 
   return (
     <>
-      <FormNoteStyled
-        isFocusInput={isFocusInput}
-        onSubmit={submitHandler}
-        isOpen={isOpenForm}
-      >
+      <FormNoteStyled isFocusInput={isFocusInput} onSubmit={submitHandler} isOpen={isOpenForm}>
         <h2>Create new note</h2>
-        <input 
-          placeholder="Title"
-          type="text" 
-          name="title"
-          value={title}
-          onChange={changeHandler}
-        />
+        <input placeholder="Title" type="text" name="title" value={title} onChange={changeHandler} />
         <textarea
           placeholder="Content"
           // type="text"
@@ -77,10 +67,10 @@ const FormNote: React.FC<FormNoteProps> = ({
           onChange={changeHandler}
         />
         <label htmlFor={checkboxId} className="labelSaveLineBreakTabs">
-          <input 
-            className="checkSaveLineBreakTabs" 
-            type="checkbox" 
-            name="isSaveLineBreakTabs" 
+          <input
+            className="checkSaveLineBreakTabs"
+            type="checkbox"
+            name="isSaveLineBreakTabs"
             checked={isSaveLineBreakTabs}
             onChange={changeHandler}
             id={checkboxId}
@@ -89,14 +79,14 @@ const FormNote: React.FC<FormNoteProps> = ({
         </label>
         <button type="submit">submit</button>
       </FormNoteStyled>
-      <BtnOpenForm onClick={changeOpennessFormHandler} >
+      <BtnOpenForm onClick={changeOpennessFormHandler}>
         <span className="visually-hidden">Button for open form</span>
-      </BtnOpenForm>     
+      </BtnOpenForm>
     </>
   );
 };
 
-const mapStateToProps = ( state: AppStore ) => ({
+const mapStateToProps = (state: AppStore) => ({
   values: state.UI.UI.form.values,
   isOpenForm: state.UI.UI.form.isOpenForm,
   notes: state.notes.notes,
@@ -104,12 +94,10 @@ const mapStateToProps = ( state: AppStore ) => ({
 const mapDispatchToProps = {
   changeValuesForm,
   changeOpennessForm,
-  createNote
+  createNote,
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )(FormNote);
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(FormNote);
 
 const BtnOpenForm = styled.button`
   position: fixed;
@@ -117,13 +105,13 @@ const BtnOpenForm = styled.button`
   left: 50%;
   transform: translateX(-50%);
   width: 50px;
-  height: 50px;  
+  height: 50px;
   background: #61c7b9;
   cursor: pointer;
   &:active {
     background: #49a094;
   }
-  &::before, 
+  &::before,
   &::after {
     content: '';
     position: absolute;
@@ -137,33 +125,39 @@ const BtnOpenForm = styled.button`
   }
 `;
 
-const FormNoteStyled = styled.form<{ isOpen: boolean, isFocusInput: boolean }>`
+const FormNoteStyled = styled.form<{ isOpen: boolean; isFocusInput: boolean }>`
   width: 100%;
   bottom: 60px;
   left: 0px;
   position: fixed;
-  height: ${({isOpen}) => isOpen ? 'calc(100% - 60px)': '0px'};
-  padding: ${({isOpen}) => isOpen ? '20px 20px': '0px 20px'};
+  height: ${({ isOpen }) => (isOpen ? 'calc(100% - 60px)' : '0px')};
+  padding: ${({ isOpen }) => (isOpen ? '20px 20px' : '0px 20px')};
   overflow: hidden;
   background-color: #61c7b9;
   transition: all 0.3s;
   font-size: 20px;
   font-family: serif;
-  &+${BtnOpenForm} {
-    border: 1px solid ${({isOpen}) => isOpen ? '#49a094'  : '#61c7b9'};
-    bottom: ${({isFocusInput}) => isFocusInput ? '5px'  : '39px'};
+  & + ${BtnOpenForm} {
+    border: 1px solid ${({ isOpen }) => (isOpen ? '#49a094' : '#61c7b9')};
+    bottom: ${({ isFocusInput }) => (isFocusInput ? '5px' : '39px')};
     border-top: none;
     border-bottom-width: 2px;
     border-radius: 50%;
     &::before {
-      transform: ${({isOpen, isFocusInput}) => 
-        isOpen ? isFocusInput ? 'translate( -9px, -35% ) rotate(-45deg)' : 
-        'translate( -50%, -50% ) rotate(-45deg)' : 'translate( -50%, -50% )'};
+      transform: ${({ isOpen, isFocusInput }) =>
+        isOpen
+          ? isFocusInput
+            ? 'translate( -9px, -35% ) rotate(-45deg)'
+            : 'translate( -50%, -50% ) rotate(-45deg)'
+          : 'translate( -50%, -50% )'};
     }
     &::after {
-      transform: ${({isOpen, isFocusInput}) => 
-        isOpen ? isFocusInput ? 'translate( 6px, -35% ) rotate(45deg)' : 
-        'translate( -50%, -50% ) rotate(45deg)' : 'translate( -50%, -50% ) rotate(90deg)'};
+      transform: ${({ isOpen, isFocusInput }) =>
+        isOpen
+          ? isFocusInput
+            ? 'translate( 6px, -35% ) rotate(45deg)'
+            : 'translate( -50%, -50% ) rotate(45deg)'
+          : 'translate( -50%, -50% ) rotate(90deg)'};
     }
   }
   & input,
@@ -178,13 +172,12 @@ const FormNoteStyled = styled.form<{ isOpen: boolean, isFocusInput: boolean }>`
     margin-bottom: 15px;
   }
   & textarea {
-    height: ${({isFocusInput}) => isFocusInput ? 'calc(100% - 35px)': 'calc(100% - 185px)'};
+    height: ${({ isFocusInput }) => (isFocusInput ? 'calc(100% - 35px)' : 'calc(100% - 185px)')};
     height: calc(100% - 195px);
     min-height: 200px;
-    margin-bottom: 12px;    
+    margin-bottom: 12px;
   }
   & button {
-
   }
   & h2 {
     font-size: 24px;

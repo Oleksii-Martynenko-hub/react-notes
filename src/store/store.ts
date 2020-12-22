@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   UI: UIReducer,
 });
 
-export type AppStore = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof rootReducer>;
 
 const store = createStore(rootReducer, composeWithDevTools());
 

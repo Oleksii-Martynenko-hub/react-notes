@@ -9,6 +9,6 @@ export default {
   },
 
   set(key: string, newStore: INote[] | ITodo[]): void | null {
-    return localStorage.setItem(key, JSON.stringify(newStore));  
-  }
+    return localStorage.setItem(key, JSON.stringify(newStore));
+  },
 };

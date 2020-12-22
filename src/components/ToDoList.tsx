@@ -7,7 +7,6 @@ import { DeleteTodo, CompleteTodo, ITodo } from '../interfaces/interfaces';
 import { deleteTodo, completeTodo } from '../store/actions';
 import localStore from '../helpers/localStore';
 
-
 interface NotesProps {
   todos: ITodo[];
   deleteTodo: (key: string) => DeleteTodo;
@@ -15,15 +14,20 @@ interface NotesProps {
 }
 
 const ToDoList: React.FC<NotesProps> = ({ todos, deleteTodo, completeTodo }) => {
-
   const changeHandler = (key: string) => () => {
     completeTodo(key);
-    localStore.set('myTodos', [...todos].map((todo: ITodo) => todo.key === key ? { ...todo, isComplete: !todo.isComplete } : todo));
+    localStore.set(
+      'myTodos',
+      [...todos].map((todo: ITodo) => (todo.key === key ? { ...todo, isComplete: !todo.isComplete } : todo))
+    );
   };
 
   const handleDelete = (key: string) => () => {
     deleteTodo(key);
-    localStore.set('myTodos', [...todos].filter((todo: ITodo) => todo.key !== key));
+    localStore.set(
+      'myTodos',
+      [...todos].filter((todo: ITodo) => todo.key !== key)
+    );
   };
 
   return (
@@ -35,33 +39,23 @@ const ToDoList: React.FC<NotesProps> = ({ todos, deleteTodo, completeTodo }) => 
         </TodoStyled>
       )}
 
-      {todos.map(
-        ({ 
-          title, 
-          key,
-          isComplete
-        }) => 
-          <TodoStyled isComplete={isComplete} key={key} >
-            <CompleteCheckbox 
-              type='checkbox' 
-              name="isComplete" 
-              checked={isComplete}
-              onChange={changeHandler(key)} 
-            />
-            <TitleStyled> {title} </TitleStyled>
-            <BtnDelNote onClick={handleDelete(key)}/>
-          </TodoStyled>
-      )}
+      {todos.map(({ title, key, isComplete }) => (
+        <TodoStyled isComplete={isComplete} key={key}>
+          <CompleteCheckbox type="checkbox" name="isComplete" checked={isComplete} onChange={changeHandler(key)} />
+          <TitleStyled> {title} </TitleStyled>
+          <BtnDelNote onClick={handleDelete(key)} />
+        </TodoStyled>
+      ))}
     </>
   );
 };
 
-const mapStateToProps = ( state: AppStore ) => ({
-  todos: state.todos.todos
+const mapStateToProps = (state: AppStore) => ({
+  todos: state.todos.todos,
 });
 const mapDispatchToProps = {
   deleteTodo,
-  completeTodo
+  completeTodo,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToDoList);
@@ -86,13 +80,13 @@ const TodoStyled = styled.div<{ isComplete?: boolean }>`
   font-family: serif;
   border-bottom: 1px solid rgb(185, 185, 185);
   & ${TitleStyled} {
-    text-decoration: ${({isComplete}) => isComplete ? 'line-through' : 'none'};
+    text-decoration: ${({ isComplete }) => (isComplete ? 'line-through' : 'none')};
     font-size: 18px;
     font-weight: 500;
     height: 32px;
     line-height: 38px;
     width: calc(100% - 77px);
-    color: ${({isComplete}) => isComplete ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.9)'};
+    color: ${({ isComplete }) => (isComplete ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.9)')};
     overflow: auto hidden;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
@@ -116,15 +110,15 @@ const BtnDelNote = styled.button`
   &::after {
     content: '';
     position: absolute;
-    width:26px;
+    width: 26px;
     height: 3px;
     top: 50%;
     left: 50%;
-    transform: translate( -50%, -50% ) rotate(-45deg);
+    transform: translate(-50%, -50%) rotate(-45deg);
     border-radius: 5px;
     background-color: #c31f1f;
   }
   &::after {
-    transform: translate( -50%, -50% ) rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg);
   }
 `;

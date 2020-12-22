@@ -13,11 +13,10 @@ interface NavProps {
 }
 
 const Nav: React.FC<NavProps> = ({ isActiveBurger, changeActiveBurger }) => {
-  
   const navPages = [
-    {item: 'Notes', path: '/', key: 1},
-    {item: 'My ToDos', path: '/todo', key: 0},
-    {item: 'About', path: '/about', key: 2},
+    { item: 'Notes', path: '/', key: 1 },
+    { item: 'My ToDos', path: '/todo', key: 0 },
+    { item: 'About', path: '/about', key: 2 },
   ];
 
   const handleClick = (): void => {
@@ -26,28 +25,25 @@ const Nav: React.FC<NavProps> = ({ isActiveBurger, changeActiveBurger }) => {
 
   return (
     <NavStyled isActive={isActiveBurger}>
-      {
-        navPages.map(({ item, path, key }) => (
-          <NavItem  onClick={handleClick} key={key} >
-            <NavLink to={path} >{ item }</NavLink>
-          </NavItem>
-        ))
-      }
+      {navPages.map(({ item, path, key }) => (
+        <NavItem onClick={handleClick} key={key}>
+          <NavLink to={path}>{item}</NavLink>
+        </NavItem>
+      ))}
     </NavStyled>
   );
 };
 
-const mapStateToProps = ( state: AppStore ) => ({
-  isActiveBurger: state.UI.UI.isActiveBurger
+const mapStateToProps = (state: AppStore) => ({
+  isActiveBurger: state.UI.UI.isActiveBurger,
 });
 
-export default connect(mapStateToProps, {changeActiveBurger})(Nav);
-
+export default connect(mapStateToProps, { changeActiveBurger })(Nav);
 
 const NavItem = styled.li`
   width: 240px;
   height: 60px;
-  position: relative;  
+  position: relative;
   text-align: center;
   font-weight: 600;
   margin: 0 auto;
@@ -68,7 +64,7 @@ const NavItem = styled.li`
   }
   &:hover {
     &::before,
-    &::after {      
+    &::after {
       background-color: rgb(238, 238, 238);
     }
   }
@@ -83,28 +79,27 @@ const NavStyled = styled.ul<{ isActive: boolean }>`
   left: 0px;
   position: fixed;
   z-index: 5;
-  height: ${({isActive}) => isActive ? 'calc(100% - 60px)': '0px'};
-  padding: ${({isActive}) => isActive ? '150px 20px': '0px 20px'};
+  height: ${({ isActive }) => (isActive ? 'calc(100% - 60px)' : '0px')};
+  padding: ${({ isActive }) => (isActive ? '150px 20px' : '0px 20px')};
   overflow: hidden;
   background-color: #61c7b9;
-  transition: ${({isActive}) => isActive ?
-  'all 0.2s 0.1s'  : 'all 0.2s 0.0s'};
+  transition: ${({ isActive }) => (isActive ? 'all 0.2s 0.1s' : 'all 0.2s 0.0s')};
   font-size: 20px;
   font-family: serif;
 
-  &>${NavItem} {
-    transform: ${({isActive}) => isActive ? 'rotate(0deg)': 'rotate(80deg)'};
-    margin-bottom: ${({isActive}) => isActive ? '40px': '0px'};
-    right: ${({isActive}) => isActive ? '0px': 'calc(-100% + 160px)'};
-    font-size: ${({isActive}) => isActive ? '32px': '5px'};
-    width: ${({isActive}) => isActive ? '240px': '18px'};
-    height: ${({isActive}) => isActive ? '60px': '5px'};
-    line-height: ${({isActive}) => isActive ? '60px': '5px'};
-    transition: ${({isActive}) => isActive ? 'all 0.2s 0.1s'  : 'all 0.2s 0.0s'};
+  & > ${NavItem} {
+    transform: ${({ isActive }) => (isActive ? 'rotate(0deg)' : 'rotate(80deg)')};
+    margin-bottom: ${({ isActive }) => (isActive ? '40px' : '0px')};
+    right: ${({ isActive }) => (isActive ? '0px' : 'calc(-100% + 160px)')};
+    font-size: ${({ isActive }) => (isActive ? '32px' : '5px')};
+    width: ${({ isActive }) => (isActive ? '240px' : '18px')};
+    height: ${({ isActive }) => (isActive ? '60px' : '5px')};
+    line-height: ${({ isActive }) => (isActive ? '60px' : '5px')};
+    transition: ${({ isActive }) => (isActive ? 'all 0.2s 0.1s' : 'all 0.2s 0.0s')};
     &::before,
     &::after {
-      top: ${({isActive}) => isActive ? '30px': '2px'};
-      transition: ${({isActive}) => isActive ? 'all 0.2s 0.1s'  : 'all 0.2s 0.0s'};
+      top: ${({ isActive }) => (isActive ? '30px' : '2px')};
+      transition: ${({ isActive }) => (isActive ? 'all 0.2s 0.1s' : 'all 0.2s 0.0s')};
     }
-  }  
+  }
 `;
